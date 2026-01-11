@@ -1,5 +1,5 @@
 import { FiArrowRight } from "react-icons/fi";
-import birthdayPartyHero from '../assets/birthdayPartyHero.jpg';
+import birthdayPartyHero from '../assets/BirthdayPartyHero.jpg';
 
 const Hero = () => {
   return (
