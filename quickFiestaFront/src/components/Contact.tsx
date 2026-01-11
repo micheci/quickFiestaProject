@@ -1,7 +1,7 @@
 import { Balloon } from "./Balloon"; 
 import { LuShieldCheck } from "react-icons/lu"; // A nice "Security/Guarantee" icon
 
-const Contact= () => {
+const Contact = () => {
   return (
     <section
       id="contact"
@@ -68,6 +68,11 @@ const Contact= () => {
               <button type="submit" className="w-full bg-[#FF6600] text-white py-5 rounded-2xl font-bold text-lg hover:bg-[#e65c00] hover:-translate-y-1 transition-all duration-200 shadow-lg shadow-orange-200 cursor-pointer">
                 Submit Request
               </button>
+
+              {/* Trust / FOMO Note */}
+              <p className="text-gray-500 text-sm text-center mt-2">
+                We’ll reach out via text or email as soon as possible to continue your quote. We never send spam.
+              </p>
             </form>
           </div>
         </div>
