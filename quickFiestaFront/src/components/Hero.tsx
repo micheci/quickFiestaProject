@@ -1,4 +1,3 @@
-import React from "react";
 import { FiArrowRight } from "react-icons/fi";
 import birthdayPartyHero from '../assets/birthdayPartyHero.jpg';
 

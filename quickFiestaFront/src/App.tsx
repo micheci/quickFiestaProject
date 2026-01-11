@@ -11,12 +11,12 @@ import Navbar from "./components/Navbar";
 import Packages from "./components/Packages";
 import Reviews from "./components/Reviews";
 import CustomizeParty from "./components/CustomizeParty";
-import React from "react";
+import { useEffect } from "react";
 
 // ScrollToTop component
 const ScrollToTop = () => {
   const { pathname } = useLocation();
-  React.useEffect(() => {
+  useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
   return null;

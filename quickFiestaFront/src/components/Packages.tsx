@@ -1,7 +1,6 @@
-import React from "react";
 import { GiPartyPopper } from "react-icons/gi";
 
-const PackagesTable: React.FC = () => {
+const PackagesTable = () => {
   const scrollToForm = () => {
     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
   };

@@ -1,8 +1,7 @@
-import React from "react";
 import { Balloon } from "./Balloon"; 
 import { LuShieldCheck } from "react-icons/lu"; // A nice "Security/Guarantee" icon
 
-const Contact: React.FC = () => {
+const Contact= () => {
   return (
     <section
       id="contact"

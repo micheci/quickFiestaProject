@@ -1,5 +1,4 @@
 import { Balloon } from "./Balloon";
-import React from "react";
 
 const testimonials = [
   { text: "Best party ever! Setup was perfect 🎉", author: "Sarah M.", color: "pink" },

@@ -1,4 +1,3 @@
-import React from "react";
 import { BsFacebook, BsInstagram, BsYoutube } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
