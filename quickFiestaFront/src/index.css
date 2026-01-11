@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@keyframes floatText {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-16px);
+  }
+}
+
+.animate-float {
+  animation: floatText 4s ease-in-out infinite;
+}
+
+
+
+@keyframes balloon-float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-18px); }
+  100% { transform: translateY(0); }
+}
+
+.balloon-float {
+  animation: balloon-float 6s ease-in-out infinite;
+}
+
+
+.card {
+  @apply shadow-lg hover:shadow-xl transition-shadow duration-200;
+}
+
+/* CTA buttons */
+.btn-primary {
+  @apply bg-[#FF6600] text-white px-6 py-3 rounded-2xl font-semibold hover:bg-[#e65c00] transition-all duration-200;
+}
