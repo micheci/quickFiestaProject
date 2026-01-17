@@ -1,17 +1,22 @@
 import { Balloon } from "./Balloon";
 
-const testimonials = [
+interface Testimonial {
+  text: string;
+  author: string;
+  color: string;
+}
+
+const testimonials: Testimonial[] = [
   { text: "Best party ever! Setup was perfect 🎉", author: "Sarah M.", color: "pink" },
   { text: "Zero stress, kids loved every moment!", author: "David & Maria L.", color: "blue" },
   { text: "Worth every penny. We just showed up.", author: "Jasmine K.", color: "green" },
 ];
 
-// --- DYNAMIC CONFETTI GENERATION (FULL SPREAD) ---
+// --- DYNAMIC CONFETTI GENERATION ---
 const random = (min: number, max: number) => `${Math.random() * (max - min) + min}%`;
 
-const confettiPieces:any = [];
+const confettiPieces: any[] = [];
 
-// Generate 70 pieces, spread across the whole section
 for (let i = 0; i < 70; i++) {
   const colors = [
     "bg-yellow-400",
@@ -29,8 +34,8 @@ for (let i = 0; i < 70; i++) {
 
   confettiPieces.push({
     color: colors[Math.floor(Math.random() * colors.length)],
-    top: random(0, 90),   // anywhere vertically
-    left: random(0, 100), // anywhere horizontally
+    top: random(0, 90),
+    left: random(0, 100),
     size: sizes[Math.floor(Math.random() * sizes.length)],
     round: rounds[Math.floor(Math.random() * rounds.length)],
     delay: `${Math.random() * 2}s`,
@@ -54,14 +59,18 @@ function BalloonTestimonial({ text, author, color, index }: any) {
 
 export default function BalloonTestimonialSection() {
   return (
-    <section className="relative py-20 md:py-32 bg-gradient-to-b from-[#FFF9F0] to-white overflow-hidden" id="balloonSection">
+    /* hidden md:block ensures this whole section doesn't exist on mobile */
+    <section 
+      className="hidden md:block relative py-20 md:py-32 bg-gradient-to-b from-[#FFF9F0] to-white overflow-hidden" 
+      id="balloonSection"
+    >
       
       {/* --- CONFETTI LAYER --- */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {confettiPieces.map((p:any, i:any) => (
+        {confettiPieces.map((p: any, i: number) => (
           <div 
             key={i}
-            className={`absolute hidden md:block ${p.color} ${p.size} ${p.round} opacity-30 animate-pulse`}
+            className={`absolute ${p.color} ${p.size} ${p.round} opacity-30 animate-pulse`}
             style={{ 
               top: p.top, 
               left: p.left, 
@@ -90,7 +99,7 @@ export default function BalloonTestimonialSection() {
 
         {/* Distributed Balloon Row */}
         <div className="flex flex-col md:flex-row justify-around items-center md:items-start gap-16 md:gap-4">
-          {testimonials.map((t, i) => (
+          {testimonials.map((t: Testimonial, i: number) => (
             <BalloonTestimonial
               key={i}
               index={i}

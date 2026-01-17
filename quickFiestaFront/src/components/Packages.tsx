@@ -5,14 +5,48 @@ const PackagesTable = () => {
     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const rows = [
-    ["Description", "Essential party fun: Bounce house, tables, chairs & accent decor.", "Themed styling: Combo slide bounce house, 15ft pro balloon garland, and 1 entertainer.", "The VIP Fiesta: Premium combo, full shimmer wall or arch backdrop, and 2 entertainers."],
-    ["Bounce House", "Standard Jumper", "Slide/Combo Unit", "Premium Themed Combo"],
-    ["Balloon Decor", "Basic Accents", "10-15ft Pro Garland", "Full Shimmer Wall & Arch"],
-    ["Tables & Chairs", "Up to 15 kids", "Up to 25 kids", "Up to 40 kids"],
-    ["Entertainment", "Optional Add-on", "1 Included (Face Paint/Character)", "2 Included"],
-    ["Starts at", "$399", "$699", "$1,199"],
+  // One source of truth for all your data
+  const packageData = [
+    {
+      name: "Simple Party",
+      description: "Essential party fun: Bounce house, tables, chairs & accent decor.",
+      price: "$399",
+      features: [
+        { label: "Bounce House", value: "Standard Jumper" },
+        { label: "Balloon Decor", value: "Basic Accents" },
+        { label: "Tables & Chairs", value: "Up to 15 kids" },
+        { label: "Entertainment", value: "Optional Add-on" },
+      ],
+      popular: false,
+    },
+    {
+      name: "Backyard Bash",
+      description: "Themed styling: Combo slide bounce house, 15ft pro balloon garland, and 1 entertainer.",
+      price: "$699",
+      features: [
+        { label: "Bounce House", value: "Slide/Combo Unit" },
+        { label: "Balloon Decor", value: "10-15ft Pro Garland" },
+        { label: "Tables & Chairs", value: "Up to 25 kids" },
+        { label: "Entertainment", value: "1 Included" },
+      ],
+      popular: true,
+    },
+    {
+      name: "Full Experience",
+      description: "The VIP Fiesta: Premium combo, full shimmer wall or arch backdrop, and 2 entertainers.",
+      price: "$1,199",
+      features: [
+        { label: "Bounce House", value: "Premium Themed Combo" },
+        { label: "Balloon Decor", value: "Full Shimmer Wall & Arch" },
+        { label: "Tables & Chairs", value: "Up to 40 kids" },
+        { label: "Entertainment", value: "2 Included" },
+      ],
+      popular: false,
+    }
   ];
+
+  // Helper to get features by label for the table rows
+  const featureLabels = ["Description", "Bounce House", "Balloon Decor", "Tables & Chairs", "Entertainment", "Starts at"];
 
   return (
     <section id="packages" className="py-24 bg-[#FFF9F0] font-inter overflow-hidden relative">
@@ -25,47 +59,84 @@ const PackagesTable = () => {
           manage the setup, and handle the cleanup.
         </p>
 
-        <div className="overflow-x-auto rounded-3xl shadow-2xl border border-orange-100">
-          <table className="w-full border-collapse bg-white">
+        {/* --- MOBILE VIEW (Vertical Cards) --- */}
+        <div className="grid grid-cols-1 gap-8 md:hidden text-left">
+          {packageData.map((pkg, idx) => (
+            <div key={idx} className={`bg-white rounded-3xl p-6 shadow-xl border-2 ${pkg.popular ? 'border-[#FF6600]' : 'border-orange-100'}`}>
+              {pkg.popular && (
+                <span className="bg-[#FF6600] text-white text-xs font-bold px-3 py-1 rounded-full uppercase mb-4 inline-block">
+                  Most Popular
+                </span>
+              )}
+              <h3 className="text-2xl font-bold text-gray-900 mb-1">{pkg.name}</h3>
+              <p className="text-gray-500 text-sm mb-6 leading-relaxed">{pkg.description}</p>
+              
+              <div className="space-y-4 mb-8">
+                {pkg.features.map((feature, fIdx) => (
+                  <div key={fIdx} className="flex justify-between items-center border-b border-gray-50 pb-2">
+                    <span className="text-xs font-bold uppercase text-gray-400 tracking-wider">{feature.label}</span>
+                    <span className="text-sm font-medium text-gray-800">{feature.value}</span>
+                  </div>
+                ))}
+              </div>
+              
+              <div className="flex items-center justify-between">
+                <span className="text-gray-400 font-medium">Starting at</span>
+                <div className="text-3xl font-black text-[#FF6600]">{pkg.price}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* --- DESKTOP VIEW (Restored Table) --- */}
+        <div className="hidden md:block overflow-hidden rounded-3xl shadow-2xl border border-orange-100 bg-white">
+          <table className="w-full border-collapse">
             <thead>
               <tr className="bg-gray-50 text-gray-700">
-                <th className="p-6 text-left border-b border-gray-200">What’s Included</th>
-                <th className="p-6 text-center border-b border-gray-200">Simple Party</th>
-
-                {/* Most Popular Column */}
-                <th className="p-6 text-center border-b border-gray-200 bg-gray-900 text-white relative">
-                  <div className="flex flex-col items-center gap-1">
-                    <div className="flex items-center gap-2">
-                      <GiPartyPopper className="text-yellow-400 w-5 h-5 animate-bounce" />
-                      <span className="font-bold text-xl uppercase tracking-wider">Backyard Bash</span>
-                      <GiPartyPopper className="text-yellow-400 w-5 h-5 animate-bounce" />
-                    </div>
-                    <span className="text-xs text-yellow-300 font-bold bg-white/10 px-2 py-1 rounded-full uppercase">Best Value</span>
-                  </div>
-                </th>
-
-                <th className="p-6 text-center border-b border-gray-200 font-bold text-xl uppercase tracking-tight">Full Experience</th>
+                <th className="p-6 text-left border-b border-gray-200 font-bold">What’s Included</th>
+                {packageData.map((pkg, i) => (
+                  <th key={i} className={`p-6 text-center border-b border-gray-200 ${pkg.popular ? 'bg-gray-900 text-white' : 'text-gray-900'}`}>
+                    {pkg.popular ? (
+                      <div className="flex flex-col items-center gap-1">
+                        <div className="flex items-center gap-2">
+                          <GiPartyPopper className="text-yellow-400 w-5 h-5 animate-bounce" />
+                          <span className="font-bold text-xl uppercase tracking-wider">{pkg.name}</span>
+                          <GiPartyPopper className="text-yellow-400 w-5 h-5 animate-bounce" />
+                        </div>
+                        <span className="text-xs text-yellow-300 font-bold bg-white/10 px-2 py-1 rounded-full uppercase">Best Value</span>
+                      </div>
+                    ) : (
+                      <span className="font-bold text-xl uppercase tracking-tight">{pkg.name}</span>
+                    )}
+                  </th>
+                ))}
               </tr>
             </thead>
-
             <tbody className="text-gray-700">
-              {rows.map((row, i) => (
-                <tr key={i} className="group hover:bg-orange-50/40 transition-colors">
-                  {row.map((cell, j) => {
-                    const isPopularCol = j === 2;
-                    const isPriceRow = i === rows.length - 1;
+              {featureLabels.map((label, rowIndex) => (
+                <tr key={rowIndex} className="group hover:bg-orange-50/40 transition-colors">
+                  {/* First Column: Feature Label */}
+                  <td className="p-5 border-b border-gray-100 font-semibold text-left bg-gray-50/50">
+                    {label}
+                  </td>
+                  
+                  {/* Data Columns */}
+                  {packageData.map((pkg, colIndex) => {
+                    let content = "";
+                    if (label === "Description") content = pkg.description;
+                    else if (label === "Starts at") content = pkg.price;
+                    else {
+                      content = pkg.features.find(f => f.label === label)?.value || "—";
+                    }
+
+                    const isPriceRow = label === "Starts at";
                     
                     return (
-                      <td
-                        key={j}
-                        className={`
-                          p-5 border-b border-gray-100 
-                          ${j === 0 ? "font-semibold text-left bg-gray-50/50" : "text-center"} 
-                          ${isPopularCol ? "bg-orange-50 font-medium border-x border-orange-100" : ""}
-                          ${isPriceRow && j !== 0 ? "text-3xl font-black text-[#FF6600]" : ""}
-                        `}
-                      >
-                        {cell}
+                      <td key={colIndex} className={`p-5 border-b border-gray-100 text-center 
+                        ${pkg.popular ? "bg-orange-50/30 border-x border-orange-100" : ""}
+                        ${isPriceRow ? "text-3xl font-black text-[#FF6600]" : "text-sm"}
+                      `}>
+                        {content}
                       </td>
                     );
                   })}
